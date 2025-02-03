@@ -30,6 +30,16 @@ else
   FORCE_OPT=""
 fi
 
+# Function for Docker Hub Authorization
+_dockerhub_login() {
+  if [ -n "${INPUT_USERNAME}" ] && [ -n "${INPUT_PASSWORD}" ]; then
+    echo "Logging in to Docker Hub..."
+    echo "${INPUT_PASSWORD}" | docker login -u "${INPUT_USERNAME}" --password-stdin
+  else
+    echo "Docker Hub credentials not provided. Skipping login."
+  fi
+}
+
 _update_values() {
   # Take the CSV-submitted list of Values "tag" keys and turn it into an
   # array. For each of these values, we'll go and update the yaml.
@@ -118,6 +128,7 @@ if [ "${INPUT_VERBOSE}" == "true" ]; then
 fi
 
 _git_switch_to_branch
+_dockerhub_login
 _update_values
 _update_chart_version
 _update_helm_docs
