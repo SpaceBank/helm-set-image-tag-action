@@ -84,6 +84,18 @@ inputs:
     required: false
     default: 'false'
 
+  username:
+    description: >-
+      Username for Dokerhub.
+    required: false
+    default: ''
+
+  password:
+    description: >-
+      Password for Dokerhub.
+    required: false
+    default: ''
+
 runs:
   using: docker
   image: Dockerfile
